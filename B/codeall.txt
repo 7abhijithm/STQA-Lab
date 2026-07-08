@@ -1,0 +1,150 @@
+SET B (Ro)
+
+B1. Verify Selenium Installation & Print Page Title
+File: b1_verify_selenium.py
+
+from selenium import webdriver
+driver = webdriver.Chrome()
+driver.get("https://www.svyasa.edu.in")
+print(driver.title)
+driver.quit()
+
+B2:
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.edge.service import Service
+import time
+
+driver = webdriver.Edge()
+
+driver.get("https://the-internet.herokuapp.com/login")
+
+driver.maximize_window()
+
+driver.find_element(By.ID, "username").send_keys("wronguser")
+driver.find_element(By.ID, "password").send_keys("wrongpass")
+
+driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+
+time.sleep(2)
+
+error = driver.find_element(By.ID, "flash").text
+print("Error Message:", error)
+driver.quit()
+
+B3. Count Images and Input Fields
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+driver = webdriver.Chrome()
+driver.get("https://www.svyasa.edu.in")
+images = driver.find_elements(By.TAG_NAME, "img")
+inputs = driver.find_elements(By.TAG_NAME, "input")
+print("Images :", len(images))
+print("Input Fields :", len(inputs))
+driver.quit()
+
+B4. Insert 10 Product Records into Excel
+File: b4_insert_products.py
+
+from openpyxl import Workbook
+wb = Workbook()
+ws = wb.active
+ws.append(["ProductID", "Name", "Category", "Price"])
+products = [
+ [101, "Laptop", "Electronics", 55000],
+ [102, "Mouse", "Electronics", 600],
+ [103, "Keyboard", "Electronics", 1200],
+ [104, "Monitor", "Electronics", 15000],
+ [105, "Printer", "Electronics", 8500],
+ [106, "Chair", "Furniture", 2500],
+ [107, "Table", "Furniture", 5000],
+ [108, "Bottle", "Accessories", 350],
+ [109, "Bag", "Accessories", 1200],
+ [110, "Notebook", "Stationery", 80],
+]
+for p in products:
+ ws.append(p)
+wb.save("Products.xlsx")
+print("10 Product Records Inserted Successfully")
+
+PART A
+
+A1. Boundary Value Analysis (BVA) – OTP Validation
+otp = int(input("Enter OTP: "))
+
+if 100000 <= otp <= 999999:
+    print("Valid OTP")
+else:
+    print("Invalid OTP")
+
+
+
+
+A2. Equivalence Class Partitioning (ECP) – Electricity Bill
+units = int(input("Enter units consumed: "))
+
+if units < 0:
+    print("Invalid Input")
+elif units <= 100:
+    print("Bill Amount = Rs. 0")
+elif units <= 300:
+    bill = (units - 100) * 5
+    print("Bill Amount = Rs.", bill)
+elif units <= 500:
+    bill = (200 * 5) + (units - 300) * 7
+    print("Bill Amount = Rs.", bill)
+else:
+    bill = (200 * 5) + (200 * 7) + (units - 500) * 10
+    print("Bill Amount = Rs.", bill)
+
+
+
+A3. Flow Graph & Cyclomatic Complexity – Mobile Number Validation
+mobile = input("Enter Mobile Number: ")
+
+if len(mobile) == 10:
+    if mobile[0] in ['6', '7', '8', '9']:
+        print("Valid Mobile Number")
+    else:
+        print("Invalid Mobile Number")
+else:
+    print("Invalid Mobile Number")
+
+
+
+
+A4. Decision Table – Discount Eligibility
+amount = int(input("Enter Order Amount: "))
+premium = input("Premium Member (yes/no): ")
+coupon = input("Coupon Available (yes/no): ")
+
+if amount >= 1000 and premium == "yes" and coupon == "yes":
+    print("Discount = 20%")
+elif amount >= 1000:
+    print("Discount = 10%")
+elif premium == "yes" and coupon == "yes":
+    print("Discount = 5%")
+else:
+    print("No Discount")
+
+
+
+
+
+
+
+A5. DD-Path Graph – PIN Code Validation
+pin = input("Enter PIN Code: ")
+
+if len(pin) == 6:
+    if pin.isdigit():
+        if pin[0] != '0':
+            print("Valid PIN Code")
+        else:
+            print("Invalid PIN Code")
+    else:
+        print("Invalid PIN Code")
+else:
+    print("Invalid PIN Code")

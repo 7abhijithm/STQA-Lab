@@ -1,0 +1,91 @@
+========================================================
+B1. Verify the Selenium Server installation and write a Python script that opens the Wikipedia homepage (https://www.wikipedia.org) and prints its page title.
+========================================================
+
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+
+driver.get("https://amazon.com")
+
+print(driver.title)
+
+driver.quit()
+
+
+========================================================
+B2. Write and execute a Selenium script that logs in to a given demo web page (URL to be provided by the examiner) using valid credentials and verifies the success message displayed.
+========================================================
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+import time
+
+driver = webdriver.Chrome()
+
+driver.get("https://the-internet.herokuapp.com/login")
+
+driver.maximize_window()
+
+driver.find_element(By.ID, "username").send_keys("wronguser")
+
+driver.find_element(By.ID, "password").send_keys("wrongpass")
+
+driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+
+time.sleep(2)
+
+error = driver.find_element(By.ID, "flash").text
+
+print("Error Message:", error)
+
+driver.quit()
+
+
+========================================================
+B3. Write and execute a program that counts and displays the total number of links (<a> tags) and buttons present on a given web page.
+========================================================
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+
+driver.get("https://www.samsung.com")
+
+links = driver.find_elements(By.TAG_NAME, "a")
+
+buttons = driver.find_elements(By.TAG_NAME, "button")
+
+print("Links =", len(links))
+
+print("Buttons =", len(buttons))
+
+driver.quit()
+
+
+========================================================
+B4. Write and execute a program that inserts 10 employee records (EmpID, Name, Department, Salary) into an Excel (.xlsx) file.
+========================================================
+
+from openpyxl import Workbook
+
+wb = Workbook()
+
+ws = wb.active
+
+ws.append(["EmpID", "Name", "Department", "Salary"])
+
+for i in range(1, 11):
+
+    ws.append([
+        i,
+        "Employee" + str(i),
+        "IT",
+        30000 + i * 1000
+    ])
+
+wb.save("employees.xlsx")
+
+print("Excel file created.")
